@@ -1,7 +1,7 @@
-module Instance (distance) where
+module Caculate (distance) where
 
-import Data (Point2D (..))
-import Typeclass (Geometry (..))
+import Geometry (Geometry (..))
+import Point (Point2D (..))
 
 instance Geometry Point2D where
   distance pointA pointB =
