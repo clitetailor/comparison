@@ -12,3 +12,5 @@ main = do
   let pointB = Point2D {x = 2, y = 1}
   putStrLn $
     show $ T.distance pointA pointB
+  putStrLn $
+    show $ T.scale pointA 2
