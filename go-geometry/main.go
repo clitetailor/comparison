@@ -1,7 +1,8 @@
 package main
 
 import (
-	"fmt"
+	"gogeometry/caculate"
+	"gogeometry/geometry"
 	"gogeometry/point"
 )
 
@@ -13,6 +14,8 @@ func main() {
 		X: 0, Y: 3,
 	}
 
-	fmt.Println(pointA)
-	fmt.Println(pointB)
+	geometry.PrintDistanceAfterScale(
+		&caculate.Point2DGeometry{pointA},
+		&caculate.Point2DGeometry{pointB},
+	)
 }
