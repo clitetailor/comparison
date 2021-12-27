@@ -8,9 +8,6 @@ import Point
 
 main :: IO ()
 main = do
-  let pointA = Point2D {x = 1, y = 2}
-  let pointB = Point2D {x = 2, y = 1}
-  putStrLn $
-    show $ Geo.distance pointA pointB
-  putStrLn $
-    show $ Geo.scale pointA 2
+  let pointA = Point2D {x = 0, y = 0}
+  let pointB = Point2D {x = 0, y = 3}
+  Geo.printDistanceAfterScale pointA pointB
