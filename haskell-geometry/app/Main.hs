@@ -1,6 +1,14 @@
 module Main where
 
-import Lib
+import Data
+  ( Point2D (..),
+  )
+import Instance ()
+import qualified Typeclass as T
 
 main :: IO ()
-main = someFunc
+main = do
+  let pointA = Point2D {x = 1, y = 2}
+  let pointB = Point2D {x = 2, y = 1}
+  putStrLn $
+    show $ T.distance pointA pointB

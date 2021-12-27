@@ -25,7 +25,9 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Data
+      Instance
+      Typeclass
   other-modules:
       Paths_haskell_geometry
   hs-source-dirs:
