@@ -7,5 +7,5 @@
 ## Run
 
 ```bash
-stack run haskell-geometry-exe
+stack run
 ```
