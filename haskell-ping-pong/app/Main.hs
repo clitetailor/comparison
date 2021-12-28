@@ -7,19 +7,19 @@ import Control.Monad (forever)
 import Control.Monad.STM (STM, atomically)
 import System.Random (randomIO)
 
-play :: String -> TChan Int -> IO ()
-play name table = nextTurn
+player :: String -> TChan Int -> IO ()
+player name table = nextTurn
   where
     nextTurn = do
       ball <- atomically $ readTChan table
       if ball == 0
         then newScore
-        else receive ball
+        else tryHit ball
 
     newScore = do
       putStrLn ("Score for " <> name)
 
-    receive ball = do
+    tryHit ball = do
       putStrLn (show ball <> " => " <> name)
       randInt :: Int <- randomIO
       threadDelay 500_000
@@ -36,8 +36,8 @@ main :: IO ()
 main = do
   table <- atomically $ newTChan
 
-  pingThread <- async (play "ping" table)
-  pongThread <- async (play "pong" table)
+  pingThread <- async (player "ping" table)
+  pongThread <- async (player "pong" table)
 
   atomically $ writeTChan table 1
 
