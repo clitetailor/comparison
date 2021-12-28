@@ -1,17 +1,17 @@
 module Main where
 
 import Control.Concurrent (threadDelay)
-import Control.Concurrent.Async (wait, async)
-import Control.Concurrent.STM.TBQueue (TBQueue, newTBQueue, readTBQueue, writeTBQueue)
+import Control.Concurrent.Async (async, wait)
+import Control.Concurrent.STM.TChan (TChan, newTChan, readTChan, writeTChan)
 import Control.Monad (forever)
 import Control.Monad.STM (STM, atomically)
 import System.Random (randomIO)
 
-play :: String -> TBQueue Int -> IO ()
+play :: String -> TChan Int -> IO ()
 play name table = nextTurn
   where
     nextTurn = do
-      ball <- atomically $ readTBQueue table
+      ball <- atomically $ readTChan table
       if ball == 0
         then newScore
         else receive ball
@@ -26,20 +26,20 @@ play name table = nextTurn
       if randInt `mod` 61 == 0
         then do
           putStrLn (name <> " missed")
-          atomically $ writeTBQueue table 0
+          atomically $ writeTChan table 0
         else do
-          atomically $ writeTBQueue table (ball + 1)
+          atomically $ writeTChan table (ball + 1)
           threadDelay 1
           nextTurn
 
 main :: IO ()
 main = do
-  table <- atomically $ newTBQueue 1
+  table <- atomically $ newTChan
 
   pingThread <- async (play "ping" table)
   pongThread <- async (play "pong" table)
 
-  atomically $ writeTBQueue table 1
+  atomically $ writeTChan table 1
 
   _ <- wait $ pingThread
   _ <- wait $ pongThread
