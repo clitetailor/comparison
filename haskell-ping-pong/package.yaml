@@ -1,0 +1,55 @@
+name: haskell-ping-pong
+version: 0.1.0.0
+github: "githubuser/haskell-ping-pong"
+license: BSD3
+author: "Author name here"
+maintainer: "example@example.com"
+copyright: "2021 Author name here"
+
+extra-source-files:
+  - README.md
+  - ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/githubuser/haskell-ping-pong#readme>
+
+default-extensions:
+  - NumericUnderscores
+  - ScopedTypeVariables
+
+dependencies:
+  - base >= 4.7 && < 5
+  - async >= 2.2 && < 3
+  - stm >= 2.5 && < 3
+  - random >= 1.2 && < 2
+
+library:
+  source-dirs: src
+
+executables:
+  haskell-ping-pong-exe:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - haskell-ping-pong
+
+tests:
+  haskell-ping-pong-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - haskell-ping-pong
